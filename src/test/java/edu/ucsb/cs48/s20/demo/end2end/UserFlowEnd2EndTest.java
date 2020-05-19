@@ -74,16 +74,16 @@ public class UserFlowEnd2EndTest {
         // Configure mock oauth endpoints
         mockOAuth2Provider.stubFor(get(urlPathEqualTo("/favicon.ico")).willReturn(notFound()));
         mockOAuth2Provider.stubFor(get(urlPathMatching("/oauth/authorize?.*"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "text/html")
-                        .withBodyFile("mocklogin.html")));
+                                   .willReturn(aResponse()
+                                               .withStatus(200)
+                                               .withHeader("Content-Type", "text/html")
+                                               .withBodyFile("mocklogin.html")));
         mockOAuth2Provider.stubFor(post(urlPathEqualTo("/login"))
-                .willReturn(temporaryRedirect("{{formData request.body 'form' urlDecode=true}}http://localhost:8080/login/oauth2/code/wiremock?code={{{randomValue length=30 type='ALPHANUMERIC'}}}&state={{{form.state}}}")));
+                                   .willReturn(temporaryRedirect("{{formData request.body 'form' urlDecode=true}}http://localhost:8080/login/oauth2/code/wiremock?code={{{randomValue length=30 type='ALPHANUMERIC'}}}&state={{{form.state}}}")));
         mockOAuth2Provider.stubFor(post(urlPathEqualTo("/oauth/token"))
-                .willReturn(okJson("{\"token_type\": \"Bearer\",\"access_token\":\"{{randomValue length=20 type='ALPHANUMERIC'}}\"}")));
+                                   .willReturn(okJson("{\"token_type\": \"Bearer\",\"access_token\":\"{{randomValue length=20 type='ALPHANUMERIC'}}\"}")));
         mockOAuth2Provider.stubFor(get(urlPathEqualTo("/userinfo"))
-                .willReturn(okJson("{\"sub\":\"my-id\",\"email\":\"joe@ucsb.edu\", \"hd\":\"ucsb.edu\", \"name\":\"Joe\", \"given_name\":\"Joe\", \"family_name\":\"Gaucho\"}")));
+                                   .willReturn(okJson("{\"sub\":\"my-id\",\"email\":\"joe@ucsb.edu\", \"hd\":\"ucsb.edu\", \"name\":\"Joe\", \"given_name\":\"Joe\", \"family_name\":\"Gaucho\"}")));
     }
 
     /**

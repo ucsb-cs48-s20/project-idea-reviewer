@@ -73,27 +73,27 @@ public class NavbarTest {
         when(aca.getIsLoggedIn(any())).thenReturn(true);
         // Check name in header is Joe
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
-                        .string("Joe"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
+                   .string("Joe"));
 
         // check role in header is (Guest)
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
-                        .string("(Guest)"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
+                   .string("(Guest)"));
 
         // Check login button is NOT present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
-                        .doesNotExist());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
+                   .doesNotExist());
 
         // Make sure admin button NOT present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
-                        .doesNotExist());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
+                   .doesNotExist());
     }
 
     /**
@@ -111,27 +111,27 @@ public class NavbarTest {
         when(aca.getIsLoggedIn(any())).thenReturn(true);
         // Check name in header is Joe
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
-                        .string("Joe"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
+                   .string("Joe"));
 
         // check role in header is (Student)
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
-                        .string("(Student)"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
+                   .string("(Student)"));
 
         // Check login button is NOT present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
-                        .doesNotExist());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
+                   .doesNotExist());
 
         // Make sure admin button NOT present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
-                        .doesNotExist());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
+                   .doesNotExist());
     }
 
     /**
@@ -150,27 +150,27 @@ public class NavbarTest {
         when(aca.getIsLoggedIn(any())).thenReturn(true);
         // Check name in header is Joe
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
-                        .string("Joe"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[1]/a")
+                   .string("Joe"));
 
         // check role in header is (Admin)
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
-                        .string("(Admin)"));
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li[2]")
+                   .string("(Admin)"));
 
         // Check login button is NOT present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
-                        .doesNotExist());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
+                   .doesNotExist());
 
         // Make sure admin button IS present
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
-                        .exists());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='navbar-nav mr-auto mt-2 mt-lg-0']/li[@class='nav-item '][1]/a[@id='navbarDropdown']")
+                   .exists());
     }
 
     /**
@@ -178,10 +178,10 @@ public class NavbarTest {
      * @throws Exception
      */
     @Test
-    public void testUnauthenticatedNavbar() throws Exception{
+    public void testUnauthenticatedNavbar() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
-                        .exists());
+        .andExpect(content().contentType("text/html;charset=UTF-8"))
+        .andExpect(xpath("/html/body/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light bg-light']/div[@id='navbarTogglerDemo03']/ul[@class='nav navbar-nav navbar-right']/li/form[@class='form-inline my-2 my-lg-0']/button[@class='navbar-btn']")
+                   .exists());
     }
 }

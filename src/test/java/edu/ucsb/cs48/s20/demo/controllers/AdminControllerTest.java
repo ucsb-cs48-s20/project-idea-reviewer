@@ -81,7 +81,7 @@ public class AdminControllerTest {
     public void testUnauthenticatedAccess() throws Exception {
 
         mvc.perform(MockMvcRequestBuilders.get("/admin").accept(MediaType.TEXT_HTML))
-                .andExpect(status().is3xxRedirection());
+        .andExpect(status().is3xxRedirection());
     }
 
     /**
@@ -92,7 +92,7 @@ public class AdminControllerTest {
 
         when(ms.role(any())).thenReturn("User");
         mvc.perform(MockMvcRequestBuilders.get("/admin").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().is3xxRedirection());
+        .andExpect(status().is3xxRedirection());
     }
 
     /**
@@ -102,6 +102,6 @@ public class AdminControllerTest {
     public void testAdminAccess() throws Exception {
         when(ms.role(any())).thenReturn("Admin");
         mvc.perform(MockMvcRequestBuilders.get("/admin").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk());
+        .andExpect(status().isOk());
     }
 }

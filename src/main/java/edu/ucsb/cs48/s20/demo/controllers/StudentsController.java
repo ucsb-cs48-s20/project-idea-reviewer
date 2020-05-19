@@ -60,7 +60,7 @@ public class StudentsController {
 
     @PostMapping("/students/delete/{id}")
     public String deleteAdmin(@PathVariable("id") Long id, Model model, RedirectAttributes redirAttrs,
-            OAuth2AuthenticationToken token) {
+                              OAuth2AuthenticationToken token) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger", "You do not have permission to access that page");
@@ -87,17 +87,17 @@ public class StudentsController {
             redirAttrs.addFlashAttribute("alertDanger", "You do not have permission to access that page");
             return "redirect:/";
         }
-        try(Reader reader = new InputStreamReader(csv.getInputStream())){
+        try(Reader reader = new InputStreamReader(csv.getInputStream())) {
             List<Student> students = csvToObjectService.parse(reader, Student.class);
             studentRepository.saveAll(students);
-        }catch(IOException e){
+        } catch(IOException e) {
             logger.error(e.toString());
-        }catch(RuntimeException a){
+        } catch(RuntimeException a) {
             logger.error("Exception: ",a);
             redirAttrs.addFlashAttribute("alertDanger", "Please enter a correct csv file.");
             return "redirect:/students";
         }
-        
+
         return "redirect:/students";
     }
 

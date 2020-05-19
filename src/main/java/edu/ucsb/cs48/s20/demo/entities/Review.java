@@ -72,7 +72,7 @@ public class Review {
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", reviewer='" + getReviewer() + "'" + ", idea='" + getIdea() + "'"
-                + ", rating='" + getRating() + "'" + ", details='" + getDetails() + "'" + "}";
+               + ", rating='" + getRating() + "'" + ", details='" + getDetails() + "'" + "}";
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Review {
         }
         Review review = (Review) o;
         return id == review.id && Objects.equals(reviewer, review.reviewer) && Objects.equals(idea, review.idea)
-                && Objects.equals(rating, review.rating) && Objects.equals(details, review.details);
+               && Objects.equals(rating, review.rating) && Objects.equals(details, review.details);
     }
 
     @Override

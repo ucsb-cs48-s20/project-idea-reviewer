@@ -11,6 +11,6 @@ import edu.ucsb.cs48.s20.demo.entities.Student;
 
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
-  public List<Review> findByReviewer(Student reviewer);
-  public List<Review> findByIdea(ProjectIdea idea);
+    public List<Review> findByReviewer(Student reviewer);
+    public List<Review> findByIdea(ProjectIdea idea);
 }

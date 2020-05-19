@@ -46,7 +46,7 @@ public class ReviewsController {
 
     @Autowired
     public ReviewsController(ProjectIdeaRepository projectIdeaRepository, StudentRepository studentRepository,
-            ReviewRepository reviewRepository) {
+                             ReviewRepository reviewRepository) {
         this.studentRepository = studentRepository;
         this.projectIdeaRepository = projectIdeaRepository;
         this.reviewRepository = reviewRepository;
@@ -76,7 +76,7 @@ public class ReviewsController {
 
     @PostMapping("/reviews/delete/{id}")
     public String deleteIdea(@PathVariable("id") Long id, Model model, RedirectAttributes redirAttrs,
-            OAuth2AuthenticationToken token) {
+                             OAuth2AuthenticationToken token) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger", "You do not have permission to access that page");
@@ -98,7 +98,7 @@ public class ReviewsController {
     // Add a review to a project_idea with {id}
     @PostMapping("/reviews/add/{id}")
     public String addReview(@ModelAttribute("review") ReviewBean reviewBean, Model model,
-            OAuth2AuthenticationToken token, BindingResult bindingResult, RedirectAttributes redirAttrs,
+                            OAuth2AuthenticationToken token, BindingResult bindingResult, RedirectAttributes redirAttrs,
                             @PathVariable("id") long ideaId) {
         String role = ms.role(token);
         if (!role.equals("Admin") && !role.equals("Student")) {

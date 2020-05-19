@@ -34,11 +34,11 @@ public class AppUsersController {
 
     @GetMapping("/users")
     public String users(Model model, OAuth2AuthenticationToken token,
-            RedirectAttributes redirAttrs) {
+                        RedirectAttributes redirAttrs) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger",
-                    "You do not have permission to access that page");
+                                         "You do not have permission to access that page");
             return "redirect:/";
         }
         model.addAttribute("users", appUserRepository.findAll());
@@ -47,11 +47,11 @@ public class AppUsersController {
 
     @PostMapping("/users/delete/{id}")
     public String deleteAdmin(@PathVariable("id") Long id, Model model,
-            RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
+                              RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger",
-                    "You do not have permission to access that page");
+                                         "You do not have permission to access that page");
             return "redirect:/";
         }
 

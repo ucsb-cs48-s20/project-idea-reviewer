@@ -27,9 +27,9 @@ public class ReviewBean {
     @Override
     public String toString() {
         return "{" +
-            " rating='" + getRating() + "'" +
-            ", details='" + getDetails() + "'" +
-            "}";
+               " rating='" + getRating() + "'" +
+               ", details='" + getDetails() + "'" +
+               "}";
     }
 
 

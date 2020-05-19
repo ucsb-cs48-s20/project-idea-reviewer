@@ -38,11 +38,11 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String admin(Model model, OAuth2AuthenticationToken token,
-            RedirectAttributes redirAttrs) {
+                        RedirectAttributes redirAttrs) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger",
-                    "You do not have permission to access that page");
+                                         "You do not have permission to access that page");
             return "redirect:/";
         }
         addAdminsFromPropertiesFile();
@@ -53,11 +53,11 @@ public class AdminController {
 
     @PostMapping("/admin/delete/{id}")
     public String deleteAdmin(@PathVariable("id") long id, Model model,
-            RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
+                              RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger",
-                    "You do not have permission to access that page");
+                                         "You do not have permission to access that page");
             return "redirect:/";
         }
 
@@ -67,10 +67,10 @@ public class AdminController {
         } else {
             String email = admin.get().getEmail();
             if (ms.getAdminEmails().contains(email)) {
-                redirAttrs.addFlashAttribute("alertDanger", "Admin " + email + " was set from application properties and cannot be deleted.");    
+                redirAttrs.addFlashAttribute("alertDanger", "Admin " + email + " was set from application properties and cannot be deleted.");
             } else {
                 adminRepository.delete(admin.get());
-                redirAttrs.addFlashAttribute("alertSuccess", "Admin successfully deleted.");    
+                redirAttrs.addFlashAttribute("alertSuccess", "Admin successfully deleted.");
             }
         }
         model.addAttribute("newAdmin", new Admin());
@@ -80,11 +80,11 @@ public class AdminController {
 
     @PostMapping("/admin/add")
     public String addAdmin(@Valid Admin admin, BindingResult result, Model model,
-            RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
+                           RedirectAttributes redirAttrs, OAuth2AuthenticationToken token) {
         String role = ms.role(token);
         if (!role.equals("Admin")) {
             redirAttrs.addFlashAttribute("alertDanger",
-                    "You do not have permission to access that page");
+                                         "You do not have permission to access that page");
             return "redirect:/";
         }
 

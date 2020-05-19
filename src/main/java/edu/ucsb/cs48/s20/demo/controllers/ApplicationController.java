@@ -22,37 +22,37 @@ import org.springframework.ui.Model;
 @Controller
 public class ApplicationController {
 
-	private Logger logger = LoggerFactory.getLogger(ApplicationController.class);
+    private Logger logger = LoggerFactory.getLogger(ApplicationController.class);
 
-	@Autowired
-	private ClientRegistrationRepository clientRegistrationRepository;
+    @Autowired
+    private ClientRegistrationRepository clientRegistrationRepository;
 
-	@GetMapping("/")
-	public String home(Idea idea, Model model) {
-		logger.info("entering ApplicationController#home");
-		logger.info("idea=" + idea);
+    @GetMapping("/")
+    public String home(Idea idea, Model model) {
+        logger.info("entering ApplicationController#home");
+        logger.info("idea=" + idea);
 
-		model.addAttribute("idea", idea);
-		model.addAttribute("titleHasErrors", false);
-		model.addAttribute("detailHasErrors", false);
+        model.addAttribute("idea", idea);
+        model.addAttribute("titleHasErrors", false);
+        model.addAttribute("detailHasErrors", false);
 
-		return "index";
-	}
+        return "index";
+    }
 
-	@GetMapping("/login")
-	public String getLoginPage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    @GetMapping("/login")
+    public String getLoginPage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
 
-		Map<String, String> urls = new HashMap<>();
+        Map<String, String> urls = new HashMap<>();
 
-		// get around an unfortunate limitation of the API
-		// that requires an unchecked cast to Iterable<ClientRegistration>
+        // get around an unfortunate limitation of the API
+        // that requires an unchecked cast to Iterable<ClientRegistration>
 
-		@SuppressWarnings("unchecked")
-		Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
-		iterable.forEach(clientRegistration -> urls.put(clientRegistration.getClientName(),
-				"/oauth2/authorization/" + clientRegistration.getRegistrationId()));
+        @SuppressWarnings("unchecked")
+        Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
+        iterable.forEach(clientRegistration -> urls.put(clientRegistration.getClientName(),
+                         "/oauth2/authorization/" + clientRegistration.getRegistrationId()));
 
-		model.addAttribute("urls", urls);
-		return "login";
-	}
+        model.addAttribute("urls", urls);
+        return "login";
+    }
 }

@@ -11,26 +11,26 @@ import org.springframework.context.annotation.PropertySource;
 public class Application extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
-	    SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
         .authorizeRequests()
-            .antMatchers("/","/login**","/webjars/**","/error**")
-            .permitAll()
+        .antMatchers("/","/login**","/webjars/**","/error**")
+        .permitAll()
         .anyRequest()
-            .authenticated()
+        .authenticated()
         .and()
-            .oauth2Login().loginPage("/login")
+        .oauth2Login().loginPage("/login")
         .and()
-            .logout()
-            .deleteCookies("remove")
-            .invalidateHttpSession(true)
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-            .permitAll();
+        .logout()
+        .deleteCookies("remove")
+        .invalidateHttpSession(true)
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/")
+        .permitAll();
     }
 
 }

@@ -90,7 +90,7 @@ public class StudentsHtmlTest {
 
         // Make sure page loads without redirect
         mvc.perform(MockMvcRequestBuilders.get("/students").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk());
+        .andExpect(status().isOk());
         // Note: with(authentication(mockAuthentication)) is required to bypass Spring's HttpSecurity that would otherwise redirect guest users to the login page
     }
 
@@ -104,7 +104,7 @@ public class StudentsHtmlTest {
 
         // Make sure page redirects (since student should not have access)
         mvc.perform(MockMvcRequestBuilders.get("/students").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().is3xxRedirection());
+        .andExpect(status().is3xxRedirection());
         // Note: with(authentication(mockAuthentication)) is required to bypass Spring's HttpSecurity that would otherwise redirect guest users to the login page
     }
 
@@ -118,9 +118,9 @@ public class StudentsHtmlTest {
 
         // Check students endpoint. Since DB has not been mocked, there will be no students in the table
         mvc.perform(MockMvcRequestBuilders.get("/students").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
-                .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[1]")
-                        .doesNotExist());
+        .andExpect(status().isOk())
+        .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[1]")
+                   .doesNotExist());
     }
 
     /**
@@ -142,13 +142,13 @@ public class StudentsHtmlTest {
 
         // Make the call and ensure table rows 1 and 2 exist (not 0 and 1, html is weird)
         mvc.perform(MockMvcRequestBuilders.get("/students").with(authentication(mockAuthentication)).accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
-                .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[1]")
-                        .exists())
-                .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[2]")
-                        .exists())
-                .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[3]")
-                        .doesNotExist());
+        .andExpect(status().isOk())
+        .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[1]")
+                   .exists())
+        .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[2]")
+                   .exists())
+        .andExpect(xpath("/html[@lang=\"en\"]/body/div[@class=\"container\"]/table[@class=\"bootstrap-table\"]/tbody//tr[3]")
+                   .doesNotExist());
 
     }
 

@@ -226,9 +226,9 @@ public class StudentsControllerTest {
 
         // Prepare the temp csv to upload
         String csvContents =
-                "Enrl Cd,Perm #,Grade,Final Units,Student Last,Student First Middle,Quarter,Course ID,Section,Meeting Time(s) / Location(s),Email,ClassLevel,Major1,Major2,Date/Time,Pronoun\n" +
-                "\n" +
-                "676,12345,,4.0,Gaucho,Joe,S20,CMPSC48,0100,T R   5:00- 6:15             M      2:00- 2:50 PHELP 1530  M      3:00- 3:50 PHELP 1530  ,joegaucho@ucsb.edu,JR,CMPSC,,4/9/2020 10:47:39 AM,";
+            "Enrl Cd,Perm #,Grade,Final Units,Student Last,Student First Middle,Quarter,Course ID,Section,Meeting Time(s) / Location(s),Email,ClassLevel,Major1,Major2,Date/Time,Pronoun\n" +
+            "\n" +
+            "676,12345,,4.0,Gaucho,Joe,S20,CMPSC48,0100,T R   5:00- 6:15             M      2:00- 2:50 PHELP 1530  M      3:00- 3:50 PHELP 1530  ,joegaucho@ucsb.edu,JR,CMPSC,,4/9/2020 10:47:39 AM,";
         MockMultipartFile mockMultipartFile = new MockMultipartFile("students.csv","students.csv",
                 "text/plain", csvContents.getBytes());
 
@@ -265,7 +265,7 @@ public class StudentsControllerTest {
 
         // Prepare the temp csv to upload
         String csvContents =
-                "Random garbage that constitutes an invalid csv \n";
+            "Random garbage that constitutes an invalid csv \n";
         MockMultipartFile mockMultipartFile = new MockMultipartFile("students.csv","students.csv",
                 "text/plain", csvContents.getBytes());
 

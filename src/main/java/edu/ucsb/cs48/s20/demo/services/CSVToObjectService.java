@@ -31,7 +31,7 @@ public interface CSVToObjectService<T> {
                     reader.close();
                 } catch (IOException ex) {
                     getLogger().error("An IOException occurred while processing CSV file", ex);
-                    // ignore for now as any significant errors 
+                    // ignore for now as any significant errors
                     // should already have been reported
                 }
             }

@@ -9,5 +9,5 @@ import edu.ucsb.cs48.s20.demo.entities.Admin;
 
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, Long> {
-  public List<Admin> findByEmail(String email);
+    public List<Admin> findByEmail(String email);
 }

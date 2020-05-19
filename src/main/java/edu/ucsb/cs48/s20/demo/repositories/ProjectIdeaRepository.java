@@ -10,5 +10,5 @@ import edu.ucsb.cs48.s20.demo.entities.Student;
 
 @Repository
 public interface ProjectIdeaRepository extends CrudRepository<ProjectIdea, Long> {
-  public List<ProjectIdea> findByStudent(Student student);
+    public List<ProjectIdea> findByStudent(Student student);
 }

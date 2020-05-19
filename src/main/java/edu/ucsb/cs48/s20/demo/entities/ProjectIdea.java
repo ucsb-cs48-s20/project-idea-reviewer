@@ -102,7 +102,7 @@ public class ProjectIdea {
         }
         ProjectIdea projectIdea = (ProjectIdea) o;
         return id == projectIdea.id && Objects.equals(student, projectIdea.student)
-                && Objects.equals(title, projectIdea.title) && Objects.equals(details, projectIdea.details);
+               && Objects.equals(title, projectIdea.title) && Objects.equals(details, projectIdea.details);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ProjectIdea {
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", student='" + getStudent() + "'" + ", title='" + getTitle() + "'"
-                + ", details='" + getDetails() + "'" + "}";
+               + ", details='" + getDetails() + "'" + "}";
     }
 
 }

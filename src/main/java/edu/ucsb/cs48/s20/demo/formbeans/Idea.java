@@ -59,9 +59,9 @@ public class Idea {
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", details='" + getDetails() + "'" +
-            "}";
+               " title='" + getTitle() + "'" +
+               ", details='" + getDetails() + "'" +
+               "}";
     }
 
 

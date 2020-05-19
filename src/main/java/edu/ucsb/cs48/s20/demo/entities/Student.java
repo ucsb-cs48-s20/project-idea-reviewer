@@ -111,7 +111,7 @@ public class Student {
         }
         Student student = (Student) o;
         return id == student.id && Objects.equals(email, student.email) && Objects.equals(fname, student.fname)
-                && Objects.equals(lname, student.lname) && Objects.equals(perm, student.perm);
+               && Objects.equals(lname, student.lname) && Objects.equals(perm, student.perm);
     }
 
     @Override
@@ -122,8 +122,8 @@ public class Student {
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", email='" + getEmail() + "'" + ", fname='" + getFname() + "'"
-                + ", lname='" + getLname() + "'" + ", perm='" + getPerm() + "'" + ", projectIdea='"
-                + getProjectIdea().getTitle() + "'" + "}";
+               + ", lname='" + getLname() + "'" + ", perm='" + getPerm() + "'" + ", projectIdea='"
+               + getProjectIdea().getTitle() + "'" + "}";
     }
 
     public ProjectIdea getProjectIdea() {

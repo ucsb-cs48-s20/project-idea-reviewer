@@ -17,10 +17,10 @@ public class CSVToObjectServiceImpl<T> implements CSVToObjectService<T> {
     @Override
     public List<T> parse(Reader csv, Class<T> type) {
         return new CsvToBeanBuilder<T>(csv)
-                .withSkipLines(2)
-                .withType(type)
-                .build()
-                .parse();
+               .withSkipLines(2)
+               .withType(type)
+               .build()
+               .parse();
     }
 
     @Override

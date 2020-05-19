@@ -27,126 +27,126 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class StudentFlowAdvice {
 
-	@Autowired
-	private MembershipService membershipService;
+    @Autowired
+    private MembershipService membershipService;
 
-	@Autowired
-	private AppUserRepository appUserRepository;
+    @Autowired
+    private AppUserRepository appUserRepository;
 
-	@Autowired
-	private StudentRepository studentRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
-	@Autowired
-	private ProjectIdeaRepository projectIdeaRepository;
+    @Autowired
+    private ProjectIdeaRepository projectIdeaRepository;
 
-	@Autowired
-	private ReviewRepository reviewRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
-	@Value("${app.number_reviews_required}")
-	private int NUMBER_OF_REVIEWS_REQUIRED;
+    @Value("${app.number_reviews_required}")
+    private int NUMBER_OF_REVIEWS_REQUIRED;
 
-	@Value("${app.show_student_reviews_of_their_idea}")
-	private boolean showStudentReviewsOfTheirIdea;
+    @Value("${app.show_student_reviews_of_their_idea}")
+    private boolean showStudentReviewsOfTheirIdea;
 
-	@ModelAttribute("TITLE_CHAR_MIN")
-	public int get_TITLE_CHAR_MIN() {
-		return ProjectIdea.TITLE_CHAR_MIN;
-	}
+    @ModelAttribute("TITLE_CHAR_MIN")
+    public int get_TITLE_CHAR_MIN() {
+        return ProjectIdea.TITLE_CHAR_MIN;
+    }
 
-	@ModelAttribute("TITLE_CHAR_MAX")
-	public int get_TITLE_CHAR_MAX() {
-		return ProjectIdea.TITLE_CHAR_MAX;
-	}
+    @ModelAttribute("TITLE_CHAR_MAX")
+    public int get_TITLE_CHAR_MAX() {
+        return ProjectIdea.TITLE_CHAR_MAX;
+    }
 
-	@ModelAttribute("DETAILS_CHAR_MIN")
-	public int get_DETAILS_CHAR_MIN() {
-		return ProjectIdea.DETAILS_CHAR_MIN;
-	}
+    @ModelAttribute("DETAILS_CHAR_MIN")
+    public int get_DETAILS_CHAR_MIN() {
+        return ProjectIdea.DETAILS_CHAR_MIN;
+    }
 
-	@ModelAttribute("DETAILS_CHAR_MAX")
-	public int get_DETAILS_CHAR_MAX() {
-		return ProjectIdea.DETAILS_CHAR_MAX;
-	}
+    @ModelAttribute("DETAILS_CHAR_MAX")
+    public int get_DETAILS_CHAR_MAX() {
+        return ProjectIdea.DETAILS_CHAR_MAX;
+    }
 
-	@ModelAttribute("needsToSubmitProjectIdea")
-	public boolean needsToSubmitProjectIdea(OAuth2AuthenticationToken token) {
-		Student student = getStudent(token);
-		if (student == null)
-			return false;
-		return (student.getProjectIdea() == null);
-	}
+    @ModelAttribute("needsToSubmitProjectIdea")
+    public boolean needsToSubmitProjectIdea(OAuth2AuthenticationToken token) {
+        Student student = getStudent(token);
+        if (student == null)
+            return false;
+        return (student.getProjectIdea() == null);
+    }
 
-	@ModelAttribute("student")
-	public Student getStudent(OAuth2AuthenticationToken token) {
-		if (!(membershipService.isStudent(token))) {
-			return null;
-		}
-		String email = membershipService.email(token);
-		List<Student> students = studentRepository.findByEmail(email);
-		if (students.size() == 0) {
-			return null;
-		}
-		Student student = students.get(0);
-		return student;
-	}
+    @ModelAttribute("student")
+    public Student getStudent(OAuth2AuthenticationToken token) {
+        if (!(membershipService.isStudent(token))) {
+            return null;
+        }
+        String email = membershipService.email(token);
+        List<Student> students = studentRepository.findByEmail(email);
+        if (students.size() == 0) {
+            return null;
+        }
+        Student student = students.get(0);
+        return student;
+    }
 
-	@ModelAttribute("reviewsNeededFromStudent")
-	public int getReviewsNeeded(OAuth2AuthenticationToken token) {
-		Student student = getStudent(token);
-		if (student == null) {
-			return 0;
-		}
+    @ModelAttribute("reviewsNeededFromStudent")
+    public int getReviewsNeeded(OAuth2AuthenticationToken token) {
+        Student student = getStudent(token);
+        if (student == null) {
+            return 0;
+        }
 
-		List<Review> reviews = reviewRepository.findByReviewer(student);
+        List<Review> reviews = reviewRepository.findByReviewer(student);
 
-		return Integer.max(0, NUMBER_OF_REVIEWS_REQUIRED - reviews.size());
-	}
+        return Integer.max(0, NUMBER_OF_REVIEWS_REQUIRED - reviews.size());
+    }
 
-	@ModelAttribute("randomIdeaThatNeedsAReview")
-	public ProjectIdea getRandomIdeaThatNeedsAReview(OAuth2AuthenticationToken token) {
-		Student student = getStudent(token);
-		if (student == null) {
-			return null;
-		}
+    @ModelAttribute("randomIdeaThatNeedsAReview")
+    public ProjectIdea getRandomIdeaThatNeedsAReview(OAuth2AuthenticationToken token) {
+        Student student = getStudent(token);
+        if (student == null) {
+            return null;
+        }
 
-		// Case 1: deliver projects with < NUMBER_OF_REVIEWS_REQUIRED reviews currently
-		Stream<ProjectIdea> projects = StreamSupport.stream(projectIdeaRepository.findAll().spliterator(), false)
-				.filter((idea) -> {
-					List<Review> reviews = reviewRepository.findByIdea(idea);
-					if (idea.getStudent().equals(student))
-						return false;
-					if (reviews.stream().anyMatch((review) -> review.getReviewer().equals(student)))
-						return false;
-					return reviews.size() < NUMBER_OF_REVIEWS_REQUIRED;
-				});
+        // Case 1: deliver projects with < NUMBER_OF_REVIEWS_REQUIRED reviews currently
+        Stream<ProjectIdea> projects = StreamSupport.stream(projectIdeaRepository.findAll().spliterator(), false)
+        .filter((idea) -> {
+            List<Review> reviews = reviewRepository.findByIdea(idea);
+            if (idea.getStudent().equals(student))
+                return false;
+            if (reviews.stream().anyMatch((review) -> review.getReviewer().equals(student)))
+                return false;
+            return reviews.size() < NUMBER_OF_REVIEWS_REQUIRED;
+        });
 
-		List<ProjectIdea> remainingProjects = projects.collect(Collectors.toList());
+        List<ProjectIdea> remainingProjects = projects.collect(Collectors.toList());
 
-		// Case 2: deliver any project that fits the criteria
-		if (remainingProjects.isEmpty()) {
-			projects = StreamSupport.stream(projectIdeaRepository.findAll().spliterator(), false)
-					.filter((idea) -> {
-						List<Review> reviews = reviewRepository.findByIdea(idea);
-						if (idea.getStudent().equals(student))
-							return false;
-						if (reviews.stream().anyMatch((review) -> review.getReviewer().equals(student)))
-							return false;
-						return true;
-					});
+        // Case 2: deliver any project that fits the criteria
+        if (remainingProjects.isEmpty()) {
+            projects = StreamSupport.stream(projectIdeaRepository.findAll().spliterator(), false)
+            .filter((idea) -> {
+                List<Review> reviews = reviewRepository.findByIdea(idea);
+                if (idea.getStudent().equals(student))
+                    return false;
+                if (reviews.stream().anyMatch((review) -> review.getReviewer().equals(student)))
+                    return false;
+                return true;
+            });
 
-			remainingProjects = projects.collect(Collectors.toList());
-		}
+            remainingProjects = projects.collect(Collectors.toList());
+        }
 
-		if (remainingProjects.isEmpty()) {
-			return null;
-		}
-		return remainingProjects.get(new Random().nextInt(remainingProjects.size()));
+        if (remainingProjects.isEmpty()) {
+            return null;
+        }
+        return remainingProjects.get(new Random().nextInt(remainingProjects.size()));
 
-	}
+    }
 
-	@ModelAttribute("showStudentReviewsOfTheirIdea")
-	public boolean showStudentReviewsOfTheirIdea() {
-		return showStudentReviewsOfTheirIdea;
-	}
+    @ModelAttribute("showStudentReviewsOfTheirIdea")
+    public boolean showStudentReviewsOfTheirIdea() {
+        return showStudentReviewsOfTheirIdea;
+    }
 
 }

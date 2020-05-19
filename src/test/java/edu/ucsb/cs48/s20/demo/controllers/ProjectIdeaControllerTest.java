@@ -40,7 +40,7 @@ import static org.mockito.Mockito.*;
 @AutoConfigureMockMvc
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-public class ProjectIdeaControllerTest{
+public class ProjectIdeaControllerTest {
     @MockBean
     private AuthControllerAdvice aca;
 
@@ -80,7 +80,7 @@ public class ProjectIdeaControllerTest{
     /*after valid submission, there is a redirect to idea reviews page*/
     /*when a student submits a VALID idea (title/deets are proper lengths), it is added to the idea db and assigned to the student*/
     @Test
-    public void addValidIdea_saveToDb() throws Exception{
+    public void addValidIdea_saveToDb() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
@@ -107,12 +107,12 @@ public class ProjectIdeaControllerTest{
         assert(captor.getValue().getDetails().equals("This is a valid description because it is more than 30 characters."));
         assert(jorbus.getProjectIdea().equals(captor.getValue()));
     }
- 
+
 
     /*submitting an invalid idea sets model attrs titleHasErrors, detailsHasErrors and adds title/detail err strings to model*/
     /*redirect to index page*/
     @Test
-    public void addInvalidIdea_noSaveToDb() throws Exception{
+    public void addInvalidIdea_noSaveToDb() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
@@ -138,18 +138,18 @@ public class ProjectIdeaControllerTest{
         verify(sr, times(0)).save(any());
         assert(model.getAttribute("idea").equals(idea));
     }
-   
+
     /*DELETE*/
     /*only an admin can perform this action*/
     @Test
-    public void deleteNotAdmin_redirectWithFlashMsg() throws Exception{
+    public void deleteNotAdmin_redirectWithFlashMsg() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
         when(ms.role((OAuth2AuthenticationToken) mockAuthentication)).thenReturn("Student");
 
         String ret = projectIdeaController.deleteIdea((long) 5, model, redirAttrs, (OAuth2AuthenticationToken) mockAuthentication);
-        
+
         assert(ret.equals("redirect:/"));
         verify(pir, times(0)).delete(any());
         verify(sr, times(0)).save(any());
@@ -159,7 +159,7 @@ public class ProjectIdeaControllerTest{
 
     /*try to delete an idea that does not exist- no deletion triggered)*/
     @Test
-    public void deleteIdeaThatDNE_noDbDeletion() throws Exception{
+    public void deleteIdeaThatDNE_noDbDeletion() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
@@ -177,7 +177,7 @@ public class ProjectIdeaControllerTest{
     /*try to delete valid idea- delete on idea repo triggered, save on student- check redirectAttrs for success msg*/
     /*redirect to ideas index page*/
     @Test
-    public void deleteIdeaThatExists_dbDeletion() throws Exception{
+    public void deleteIdeaThatExists_dbDeletion() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
@@ -207,7 +207,7 @@ public class ProjectIdeaControllerTest{
 
     /*INDEX PAGE*/
     /*redirect when not logged in as admin*/
-    public void indexNotAdmin_redirectWithFlashMsg() throws Exception{
+    public void indexNotAdmin_redirectWithFlashMsg() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 
@@ -222,7 +222,7 @@ public class ProjectIdeaControllerTest{
 
     /*success when admin*/
     @Test
-    public void indexAdmin_showIdeaList() throws Exception{
+    public void indexAdmin_showIdeaList() throws Exception {
         Model model = new ExtendedModelMap();
         RedirectAttributes redirAttrs = new RedirectAttributesModelMap();
 

@@ -42,7 +42,7 @@ public interface MembershipService {
         if (isAdmin(token))
             return "Admin";
         if (isStudent(token))
-            return "Student";    
+            return "Student";
         if (isMember(token))
             return "Member";
         return "Guest";

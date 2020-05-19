@@ -143,10 +143,9 @@ public class GoogleMembershipService implements MembershipService {
             return "";
         try {
             return token.getPrincipal().getAttributes().get("family_name").toString();
-        }
-        catch(NullPointerException e) {
+        } catch(NullPointerException e) {
             return "";
-        }   
+        }
     }
 
     public String email(OAuth2AuthenticationToken token) {

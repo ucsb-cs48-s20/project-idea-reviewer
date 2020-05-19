@@ -1,3 +1,6 @@
+# astyle
+*.orig
+
 # CSV files
 
 *.csv
